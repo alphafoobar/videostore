@@ -9,7 +9,7 @@ public class VideoStoreTest {
 
     @Test
     public void testSingleNewReleaseStatement() {
-        customer.addRental(new Rental(createMovie("The Cell", Movie.NEW_RELEASE), 3));
+        customer.addRental(new Rental(createNewRelease("The Cell", Movie.NEW_RELEASE), 3));
         assertEquals(
             "Rental Record for " + NAME + "\n"
                 + "\tThe Cell\t9.0\n"
@@ -20,8 +20,8 @@ public class VideoStoreTest {
 
     @Test
     public void testDualNewReleaseStatement() {
-        customer.addRental(new Rental(createMovie("The Cell", Movie.NEW_RELEASE), 3));
-        customer.addRental(new Rental(createMovie("The Tigger Movie", Movie.NEW_RELEASE), 3));
+        customer.addRental(new Rental(createNewRelease("The Cell", Movie.NEW_RELEASE), 3));
+        customer.addRental(new Rental(createNewRelease("The Tigger Movie", Movie.NEW_RELEASE), 3));
         assertEquals(
             "Rental Record for " + NAME + "\n"
                 + "\tThe Cell\t9.0\n"
@@ -33,7 +33,7 @@ public class VideoStoreTest {
 
     @Test
     public void testSingleChildrensStatement() {
-        customer.addRental(new Rental(createMovie("The Tigger Movie", Movie.CHILDRENS), 3));
+        customer.addRental(new Rental(createChildrens("The Tigger Movie", Movie.CHILDRENS), 3));
         assertEquals(
             "Rental Record for " + NAME + "\n"
                 + "\tThe Tigger Movie\t1.5\n"
@@ -44,7 +44,7 @@ public class VideoStoreTest {
 
     @Test
     public void testSingleLongRentChildrensStatement() {
-        customer.addRental(new Rental(createMovie("The Tigger Movie", Movie.CHILDRENS), 5));
+        customer.addRental(new Rental(createChildrens("The Tigger Movie", Movie.CHILDRENS), 5));
         assertEquals(
             "Rental Record for " + NAME + "\n"
                 + "\tThe Tigger Movie\t4.5\n"
@@ -55,9 +55,9 @@ public class VideoStoreTest {
 
     @Test
     public void testMultipleRegularStatement() {
-        customer.addRental(new Rental(createMovie("Plan 9 from Outer Space", Movie.REGULAR), 1));
-        customer.addRental(new Rental(createMovie("8 1/2", Movie.REGULAR), 2));
-        customer.addRental(new Rental(createMovie("Eraserhead", Movie.REGULAR), 3));
+        customer.addRental(new Rental(createRegular("Plan 9 from Outer Space", Movie.REGULAR), 1));
+        customer.addRental(new Rental(createRegular("8 1/2", Movie.REGULAR), 2));
+        customer.addRental(new Rental(createRegular("Eraserhead", Movie.REGULAR), 3));
 
         assertEquals(
             "Rental Record for " + NAME + "\n"
@@ -71,10 +71,10 @@ public class VideoStoreTest {
 
     @Test
     public void testMultipleTypeStatement() {
-        customer.addRental(new Rental(createMovie("The Cell", Movie.NEW_RELEASE), 3));
-        customer.addRental(new Rental(createMovie("Plan 9 from Outer Space", Movie.REGULAR), 1));
-        customer.addRental(new Rental(createMovie("8 1/2", Movie.REGULAR), 2));
-        customer.addRental(new Rental(createMovie("The Tigger Movie", Movie.CHILDRENS), 5));
+        customer.addRental(new Rental(createNewRelease("The Cell", Movie.NEW_RELEASE), 3));
+        customer.addRental(new Rental(createRegular("Plan 9 from Outer Space", Movie.REGULAR), 1));
+        customer.addRental(new Rental(createRegular("8 1/2", Movie.REGULAR), 2));
+        customer.addRental(new Rental(createChildrens("The Tigger Movie", Movie.CHILDRENS), 5));
 
         assertEquals(
             "Rental Record for " + NAME + "\n"
@@ -87,9 +87,16 @@ public class VideoStoreTest {
             customer.buildStatement());
     }
 
-    private Movie createMovie(String title, int priceCode) {
-        return new Movie(title, priceCode);
+    private Movie createNewRelease(String title, int priceCode) {
+        return new NewReleaseMovie(title, priceCode);
     }
 
+    private Movie createChildrens(String title, int priceCode) {
+        return new ChildrensMovie(title, priceCode);
+    }
+
+    private Movie createRegular(String title, int priceCode) {
+        return new RegularMovie(title, priceCode);
+    }
 
 }
