@@ -107,13 +107,6 @@
             <transformationSet>
               <dir>${project.build.directory}/findbugs</dir>
               <outputDir>${project.build.directory}/findbugs</outputDir>
-              <stylesheet>fancy.xsl</stylesheet>
-              <fileMappers>
-                <fileMapper
-                  implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
-                  <targetExtension>.html</targetExtension>
-                </fileMapper>
-              </fileMappers>
             </transformationSet>
           </transformationSets>
         </configuration>
