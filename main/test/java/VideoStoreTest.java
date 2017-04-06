@@ -1,15 +1,12 @@
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
-public class VideoStoreTest extends TestCase {
+import org.junit.Test;
 
-    public VideoStoreTest(String name) {
-        super(name);
-    }
+public class VideoStoreTest {
 
-    protected void setUp() {
-        customer = new Customer("Fred");
-    }
+    private Customer customer = new Customer("Fred");
 
+    @Test
     public void testSingleNewReleaseStatement() {
         customer.addRental(new Rental(new Movie("The Cell", Movie.NEW_RELEASE), 3));
         assertEquals(
@@ -17,6 +14,7 @@ public class VideoStoreTest extends TestCase {
             customer.statement());
     }
 
+    @Test
     public void testDualNewReleaseStatement() {
         customer.addRental(new Rental(new Movie("The Cell", Movie.NEW_RELEASE), 3));
         customer.addRental(new Rental(new Movie("The Tigger Movie", Movie.NEW_RELEASE), 3));
@@ -25,6 +23,7 @@ public class VideoStoreTest extends TestCase {
             customer.statement());
     }
 
+    @Test
     public void testSingleChildrensStatement() {
         customer.addRental(new Rental(new Movie("The Tigger Movie", Movie.CHILDRENS), 3));
         assertEquals(
@@ -32,6 +31,7 @@ public class VideoStoreTest extends TestCase {
             customer.statement());
     }
 
+    @Test
     public void testMultipleRegularStatement() {
         customer.addRental(new Rental(new Movie("Plan 9 from Outer Space", Movie.REGULAR), 1));
         customer.addRental(new Rental(new Movie("8 1/2", Movie.REGULAR), 2));
@@ -42,5 +42,4 @@ public class VideoStoreTest extends TestCase {
             customer.statement());
     }
 
-    private Customer customer;
 }
