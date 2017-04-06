@@ -32,15 +32,24 @@ public class Customer {
     }
 
     public String buildStatement() {
-        String result = "Rental Record for " + getName() + "\n";
+        return buildHeader() + buildStatementBody() + buildFooter();
+    }
 
+    private String buildStatementBody() {
+        StringBuilder statement = new StringBuilder(100);
         for (Rental rental : rentals) {
-            result += "\t" + rental.toSummary();
+            statement.append('\t').append(rental.buildSummary());
         }
+        return statement.toString();
+    }
 
-        result += "You owed " + totalAmount + "\n";
-        result += "You earned " + frequentRenterPoints + " frequent renter points\n";
-        return result;
+    private String buildHeader() {
+        return "Rental Record for " + getName() + "\n";
+    }
+
+    private String buildFooter() {
+        return "You owed " + totalAmount + "\n" +
+            "You earned " + frequentRenterPoints + " frequent renter points\n";
     }
 
 }

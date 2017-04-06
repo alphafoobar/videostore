@@ -1,14 +1,14 @@
 
 
-public abstract class Movie {
+abstract class Movie {
 
     private final String title;
 
-    public Movie(String title) {
+    Movie(String title) {
         this.title = title;
     }
 
-    public String getTitle() {
+    String getTitle() {
         return title;
     }
 
