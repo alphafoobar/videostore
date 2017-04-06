@@ -4,42 +4,92 @@ import org.junit.Test;
 
 public class VideoStoreTest {
 
-    private Customer customer = new Customer("Fred");
+    private static final String NAME = "Customer name";
+    private final Customer customer = new Customer(NAME);
 
     @Test
     public void testSingleNewReleaseStatement() {
-        customer.addRental(new Rental(new Movie("The Cell", Movie.NEW_RELEASE), 3));
+        customer.addRental(new Rental(createMovie("The Cell", Movie.NEW_RELEASE), 3));
         assertEquals(
-            "Rental Record for Fred\n\tThe Cell\t9.0\nYou owed 9.0\nYou earned 2 frequent renter points\n",
-            customer.statement());
+            "Rental Record for " + NAME + "\n"
+                + "\tThe Cell\t9.0\n"
+                + "You owed 9.0\n"
+                + "You earned 2 frequent renter points\n",
+            customer.buildStatement());
     }
 
     @Test
     public void testDualNewReleaseStatement() {
-        customer.addRental(new Rental(new Movie("The Cell", Movie.NEW_RELEASE), 3));
-        customer.addRental(new Rental(new Movie("The Tigger Movie", Movie.NEW_RELEASE), 3));
+        customer.addRental(new Rental(createMovie("The Cell", Movie.NEW_RELEASE), 3));
+        customer.addRental(new Rental(createMovie("The Tigger Movie", Movie.NEW_RELEASE), 3));
         assertEquals(
-            "Rental Record for Fred\n\tThe Cell\t9.0\n\tThe Tigger Movie\t9.0\nYou owed 18.0\nYou earned 4 frequent renter points\n",
-            customer.statement());
+            "Rental Record for " + NAME + "\n"
+                + "\tThe Cell\t9.0\n"
+                + "\tThe Tigger Movie\t9.0\n"
+                + "You owed 18.0\n"
+                + "You earned 4 frequent renter points\n",
+            customer.buildStatement());
     }
 
     @Test
     public void testSingleChildrensStatement() {
-        customer.addRental(new Rental(new Movie("The Tigger Movie", Movie.CHILDRENS), 3));
+        customer.addRental(new Rental(createMovie("The Tigger Movie", Movie.CHILDRENS), 3));
         assertEquals(
-            "Rental Record for Fred\n\tThe Tigger Movie\t1.5\nYou owed 1.5\nYou earned 1 frequent renter points\n",
-            customer.statement());
+            "Rental Record for " + NAME + "\n"
+                + "\tThe Tigger Movie\t1.5\n"
+                + "You owed 1.5\n"
+                + "You earned 1 frequent renter points\n",
+            customer.buildStatement());
+    }
+
+    @Test
+    public void testSingleLongRentChildrensStatement() {
+        customer.addRental(new Rental(createMovie("The Tigger Movie", Movie.CHILDRENS), 5));
+        assertEquals(
+            "Rental Record for " + NAME + "\n"
+                + "\tThe Tigger Movie\t4.5\n"
+                + "You owed 4.5\n"
+                + "You earned 1 frequent renter points\n",
+            customer.buildStatement());
     }
 
     @Test
     public void testMultipleRegularStatement() {
-        customer.addRental(new Rental(new Movie("Plan 9 from Outer Space", Movie.REGULAR), 1));
-        customer.addRental(new Rental(new Movie("8 1/2", Movie.REGULAR), 2));
-        customer.addRental(new Rental(new Movie("Eraserhead", Movie.REGULAR), 3));
+        customer.addRental(new Rental(createMovie("Plan 9 from Outer Space", Movie.REGULAR), 1));
+        customer.addRental(new Rental(createMovie("8 1/2", Movie.REGULAR), 2));
+        customer.addRental(new Rental(createMovie("Eraserhead", Movie.REGULAR), 3));
 
         assertEquals(
-            "Rental Record for Fred\n\tPlan 9 from Outer Space\t2.0\n\t8 1/2\t2.0\n\tEraserhead\t3.5\nYou owed 7.5\nYou earned 3 frequent renter points\n",
-            customer.statement());
+            "Rental Record for " + NAME + "\n"
+                + "\tPlan 9 from Outer Space\t2.0\n"
+                + "\t8 1/2\t2.0\n"
+                + "\tEraserhead\t3.5\n"
+                + "You owed 7.5\n"
+                + "You earned 3 frequent renter points\n",
+            customer.buildStatement());
     }
+
+    @Test
+    public void testMultipleTypeStatement() {
+        customer.addRental(new Rental(createMovie("The Cell", Movie.NEW_RELEASE), 3));
+        customer.addRental(new Rental(createMovie("Plan 9 from Outer Space", Movie.REGULAR), 1));
+        customer.addRental(new Rental(createMovie("8 1/2", Movie.REGULAR), 2));
+        customer.addRental(new Rental(createMovie("The Tigger Movie", Movie.CHILDRENS), 5));
+
+        assertEquals(
+            "Rental Record for " + NAME + "\n"
+                + "\tThe Cell\t9.0\n"
+                + "\tPlan 9 from Outer Space\t2.0\n"
+                + "\t8 1/2\t2.0\n"
+                + "\tThe Tigger Movie\t4.5\n"
+                + "You owed 17.5\n"
+                + "You earned 5 frequent renter points\n",
+            customer.buildStatement());
+    }
+
+    private Movie createMovie(String title, int priceCode) {
+        return new Movie(title, priceCode);
+    }
+
 
 }
