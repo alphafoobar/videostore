@@ -1,3 +1,5 @@
+package videostore;
+
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -14,8 +16,7 @@ public class VideoStoreTest {
 
     @Test
     public void testZeroStatement() {
-        assertEquals(0, customer.getAmountOwed(), 0.0001);
-        assertThat(customer.getFrequentRenterPoints(), equalTo(0));
+        checkAmountAndPoints(0, 0);
 
         assertEquals(
             "Rental Record for " + NAME + "\n"
@@ -33,8 +34,7 @@ public class VideoStoreTest {
 
         double expectedAmount = 17.5;
         int expectedPoints = 5;
-        assertEquals(expectedAmount, customer.getAmountOwed(), 0.0001);
-        assertThat(customer.getFrequentRenterPoints(), equalTo(expectedPoints));
+        checkAmountAndPoints(expectedAmount, expectedPoints);
 
         assertEquals(
             "Rental Record for " + NAME + "\n"
@@ -51,16 +51,14 @@ public class VideoStoreTest {
     public void testSingleDayNewReleaseStatement() {
         customer.addRental(new Rental(createNewRelease(), 1));
 
-        assertEquals(3, customer.getAmountOwed(), 0.0001);
-        assertThat(customer.getFrequentRenterPoints(), equalTo(1));
+        checkAmountAndPoints(3, 1);
     }
 
     @Test
     public void testSingleNewReleaseStatement() {
         customer.addRental(new Rental(createNewRelease(), 3));
 
-        assertEquals(9, customer.getAmountOwed(), 0.0001);
-        assertThat(customer.getFrequentRenterPoints(), equalTo(2));
+        checkAmountAndPoints(9, 2);
     }
 
     @Test
@@ -68,24 +66,21 @@ public class VideoStoreTest {
         customer.addRental(new Rental(createNewRelease(), 3));
         customer.addRental(new Rental(createNewRelease(), 3));
 
-        assertEquals(18, customer.getAmountOwed(), 0.0001);
-        assertThat(customer.getFrequentRenterPoints(), equalTo(4));
+        checkAmountAndPoints(18, 4);
     }
 
     @Test
     public void testSingleChildrensStatement() {
         customer.addRental(new Rental(createChildrens(), 3));
 
-        assertEquals(1.5, customer.getAmountOwed(), 0.0001);
-        assertThat(customer.getFrequentRenterPoints(), equalTo(1));
+        checkAmountAndPoints(1.5, 1);
     }
 
     @Test
     public void testSingleLongRentChildrensStatement() {
         customer.addRental(new Rental(createChildrens(), 5));
 
-        assertEquals(4.5, customer.getAmountOwed(), 0.0001);
-        assertThat(customer.getFrequentRenterPoints(), equalTo(1));
+        checkAmountAndPoints(4.5, 1);
     }
 
     @Test
@@ -94,8 +89,12 @@ public class VideoStoreTest {
         customer.addRental(new Rental(createRegular(), 2));
         customer.addRental(new Rental(createRegular(), 3));
 
-        assertEquals(7.5, customer.getAmountOwed(), 0.0001);
-        assertThat(customer.getFrequentRenterPoints(), equalTo(3));
+        checkAmountAndPoints(7.5, 3);
+    }
+
+    private void checkAmountAndPoints(double expectedAmount, int expectedPoints) {
+        assertEquals(expectedAmount, customer.getAmountOwed(), 0.0001);
+        assertThat(customer.getFrequentRenterPoints(), equalTo(expectedPoints));
     }
 
     private Movie createNewRelease() {

@@ -1,3 +1,4 @@
+package videostore;
 
 public class Rental {
 
