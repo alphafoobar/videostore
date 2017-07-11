@@ -60,7 +60,7 @@
               <goal>check</goal>
             </goals>
             <configuration>
-              <configLocation>my_google_checks.xml</configLocation>
+              <configLocation>google-based-checkstyle.xml</configLocation>
               <encoding>UTF-8</encoding>
               <consoleOutput>true</consoleOutput>
               <failOnViolation>${fail.on.error}</failOnViolation>
