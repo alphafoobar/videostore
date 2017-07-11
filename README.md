@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/alphafoobar/videostore.svg?branch=master)](https://travis-ci.com/alphafoobar/videostore) [![codecov](https://codecov.io/gh/alphafoobar/videostore/branch/master/graph/badge.svg)](https://codecov.io/gh/alphafoobar/videostore)
+[![Build Status](https://travis-ci.org/alphafoobar/videostore.svg?branch=master)](https://travis-ci.org/alphafoobar/videostore) [![codecov](https://codecov.io/gh/alphafoobar/videostore/branch/master/graph/badge.svg)](https://codecov.io/gh/alphafoobar/videostore)
 
 videostore
 ==========
