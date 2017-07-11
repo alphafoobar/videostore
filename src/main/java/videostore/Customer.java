@@ -3,37 +3,37 @@ package videostore;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Customer {
+class Customer {
 
-    private final String name;
     private final List<Rental> rentals = new ArrayList<>();
+    private final String name;
 
-    private double totalAmount = 0;
-    private int frequentRenterPoints = 0;
+    private double totalAmount;
+    private int frequentRenterPoints;
 
-    public Customer(String name) {
+    Customer(String name) {
         this.name = name;
     }
 
-    public void addRental(Rental rental) {
+    void addRental(Rental rental) {
         rentals.add(rental);
         totalAmount += rental.calculateAmountOwed();
         frequentRenterPoints += rental.calculatePoints();
     }
 
-    public String getName() {
+    private String getName() {
         return name;
     }
 
-    public double getAmountOwed() {
+    double getAmountOwed() {
         return totalAmount;
     }
 
-    public int getFrequentRenterPoints() {
+    int getFrequentRenterPoints() {
         return frequentRenterPoints;
     }
 
-    public String buildStatement() {
+    String buildStatement() {
         return buildHeader() + buildStatementBody() + buildFooter();
     }
 
