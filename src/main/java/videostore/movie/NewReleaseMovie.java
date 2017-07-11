@@ -1,4 +1,4 @@
-package videostore;
+package videostore.movie;
 
 public class NewReleaseMovie extends Movie {
 
@@ -7,7 +7,7 @@ public class NewReleaseMovie extends Movie {
     }
 
     @Override
-    int calculatePoints(int daysRented) {
+    public int calculatePoints(int daysRented) {
         if (daysRented < 2) {
             return 1;
         }
@@ -15,7 +15,7 @@ public class NewReleaseMovie extends Movie {
     }
 
     @Override
-    double calculateAmount(int daysRented) {
+    public double calculateAmount(int daysRented) {
         return daysRented * 3;
     }
 }

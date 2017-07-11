@@ -1,18 +1,20 @@
 package videostore;
 
-public class Rental {
+import videostore.movie.Movie;
+
+class Rental {
 
     private Movie movie;
     private int points;
     private double amount;
 
-    public Rental(Movie movie, int daysRented) {
+    Rental(Movie movie, int daysRented) {
         this.movie = movie;
         points = movie.calculatePoints(daysRented);
         amount = movie.calculateAmount(daysRented);
     }
 
-    public Movie getMovie() {
+    private Movie getMovie() {
         return movie;
     }
 

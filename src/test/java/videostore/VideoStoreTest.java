@@ -5,6 +5,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
+import videostore.movie.ChildrensMovie;
+import videostore.movie.Movie;
+import videostore.movie.NewReleaseMovie;
+import videostore.movie.RegularMovie;
 
 public class VideoStoreTest {
 
