@@ -3,4 +3,4 @@ jdk:
   - oraclejdk8
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+  - bash <(curl -s https://codecov.io/bash) -t 8788ca49-6b1b-49c2-a368-3a6aa15e9563 || echo "Codecov did not collect coverage reports"
